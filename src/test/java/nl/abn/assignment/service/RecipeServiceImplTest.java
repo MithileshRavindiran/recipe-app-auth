@@ -40,29 +40,6 @@ public class RecipeServiceImplTest {
         recipeList = getListOfRecipeEntity();
     }
 
-    @Test
-    public void whenRequestingRecipes_thenFromTheDatabaseRecipesFetched_expectTheValidPostsSentInPageable() {
-        Page<Recipe> recipePage = new PageImpl<>(recipeList);
-        when(recipeRepository.findAll(PageRequest.of(1,10, Sort.by("id")))).thenReturn(recipePage);
-        Page<RecipeDetails> postInfoPages = recipeService.getRecipe(PageRequest.of(1,10, Sort.by("id")));
-        assertAll("Validating the Received recipe",
-                () -> assertNotNull(postInfoPages),
-                () -> assertEquals(2, postInfoPages.getTotalElements()),
-                () -> assertEquals(2, postInfoPages.getContent().size()),
-                () -> verify(recipeRepository, times(1)).findAll(PageRequest.of(1,10, Sort.by("id"))));
-    }
-
-    @Test
-    public void whenRequestingRecipes_thenFromTheDatabaseEmptyListRecipesFetched_expectTheRecipesSentInPageable() {
-        Page<Recipe> recipePage = new PageImpl<>(new ArrayList<>());
-        when(recipeRepository.findAll(PageRequest.of(1,10, Sort.by("id")))).thenReturn(recipePage);
-        Page<RecipeDetails> recipeInfoPages = recipeService.getRecipe(PageRequest.of(1,10, Sort.by("id")));
-        assertAll("Validating the Received recip",
-                () -> assertNotNull(recipeInfoPages),
-                () -> assertEquals(0, recipeInfoPages.getTotalElements()),
-                () -> assertEquals(0, recipeInfoPages.getContent().size()),
-                () -> verify(recipeRepository, times(1)).findAll(PageRequest.of(1,10, Sort.by("id"))));
-    }
 
     @Test
     public void whenRequestingRecipesWithFilter_thenFromTheDatabaseEmptyListRecipesFetched_expectTheRecipesSentInPageable() {

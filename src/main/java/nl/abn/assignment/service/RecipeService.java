@@ -10,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 public interface RecipeService {
     RecipeDetails createRecipe(CreateRecipeRequest createrecipeRequest);
 
-    Page<RecipeDetails> getRecipe(final Pageable pageable);
-
     Page<RecipeDetails> filterRecipe(final Pageable pageable, QueryRequest queryRequest);
 
     RecipeDetails getRecipeDetails(String id);

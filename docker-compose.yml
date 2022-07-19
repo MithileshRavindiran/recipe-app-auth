@@ -5,13 +5,15 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
-      MONGO_INITDB_DATABASE: iot
+      MONGO_INITDB_DATABASE: recipe
     ports:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
 
   recipe-app:
+    depends_on:
+      - mongodb
     build:
       context: ./
       dockerfile: docker/Dockerfile
@@ -22,17 +24,7 @@ services:
       - mongodb
     environment:
       SPRING_PROFILES_ACTIVE: docker
-  iot-services-api:
-    build:
-      context: ./
-      dockerfile: docker/api.Dockerfile
-    # restart: unless-stopped
-    ports:
-      - "8082:8082"
-    links:
-      - mongodb
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
+
 
 volumes:
   mongodb_data_container:

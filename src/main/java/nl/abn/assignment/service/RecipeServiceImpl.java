@@ -29,11 +29,6 @@ public class RecipeServiceImpl implements RecipeService {
         return RecipeDetailsMapper.INSTANCE.toDto(recipe);
     }
 
-    @Override
-    public Page<RecipeDetails> getRecipe(Pageable pageable) {
-       Page<Recipe> recipesPages =  recipeRepository.findAll(pageable);
-       return recipesPages.map(RecipeDetailsMapper.INSTANCE::toDto);
-    }
 
     @Override
     public Page<RecipeDetails> filterRecipe(Pageable pageable, QueryRequest queryRequest) {

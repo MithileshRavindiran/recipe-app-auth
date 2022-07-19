@@ -37,18 +37,6 @@ public class RecipeController {
 
     private final RecipeService recipeService;
 
-    @Operation(summary = "Get All the recipes")
-    @PageableAsQueryParam
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description =" Returns all of the recipes",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Page.class))),
-            @ApiResponse(responseCode = "500", description = "Internal Server Exception",
-                    content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @GetMapping
-    ResponseEntity<Page<RecipeDetails>> getRecipes(@PageableDefault(sort = {"id"}) Pageable pageable) {
-        return new ResponseEntity<>(recipeService.getRecipe(pageable), HttpStatus.OK);
-    }
 
     @Operation(summary = "Get Recipe with Optional Filters")
     @PageableAsQueryParam

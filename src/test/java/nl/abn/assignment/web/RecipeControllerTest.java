@@ -132,18 +132,6 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void whenRequestingGetAllRecipes_thenServiceProcessTheRequestSuccessfully_expectAllRecipesReturnedSuccessfully() throws Exception {
-        when(recipeService.getRecipe(any(Pageable.class))).thenReturn(new PageImpl<>(TestHelperUtil.getRecipeDetails()));
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipes"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.totalPages", is(1)))
-                .andExpect(jsonPath("$.totalElements", is(2)))
-                .andExpect(jsonPath("$.content[0].name", is("my recipe 1")))
-                .andExpect(jsonPath("$.content[1].recipeType", is("GLUTEN_FREE")));
-        verify(recipeService, times(1)).getRecipe(any(Pageable.class));
-    }
-
-    @Test
     public void whenRequestingGetAllRecipesWithFilter_thenServiceProcessTheRequestSuccessfully_expectAllRecipesReturnedSuccessfully() throws Exception {
         when(recipeService.filterRecipe(any(Pageable.class), any(QueryRequest.class))).thenReturn(new PageImpl<>(TestHelperUtil.getRecipeDetails()));
         mockMvc.perform(MockMvcRequestBuilders.post("/recipes/filter")

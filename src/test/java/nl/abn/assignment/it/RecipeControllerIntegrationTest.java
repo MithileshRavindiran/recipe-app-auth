@@ -53,14 +53,6 @@ public class RecipeControllerIntegrationTest {
     }
 
     @Test
-    void listRecipeDetails() throws Exception {
-        ResponseEntity<Object> responseEntity = restTemplate.getForEntity(createURLWithPort("/recipes"),
-               Object.class);
-        assertAll("Validating response",
-                () -> assertEquals(200, responseEntity.getStatusCodeValue()));
-    }
-
-    @Test
     void listRecipeDetailsWithFilter() throws Exception {
         ResponseEntity<Object> responseEntity = restTemplate.postForEntity(createURLWithPort("/recipes/filter"),
                 QueryRequest.builder()

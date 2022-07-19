@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      host: mongodb
+      port: 27018
+      username: root
+      password: rootpassword
+      database: recipe
+      auto-index-creation: true
+
