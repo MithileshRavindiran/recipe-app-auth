@@ -1,7 +1,7 @@
 # Recipe Application Java Assignment
 
 ## Introduction
-This assignment consists of two parts:
+This assignment is to 
 1) Write a SpringBoot/Java restful backend;
 
 
