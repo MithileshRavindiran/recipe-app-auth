@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: ${active.profile:dev}
+
+
+app:
+ security:
+   token:
+     expirationTime: 86400000
+     signingKey: SeyaliyinKadavuchsolSaavi
+     bearer:
+       prefix: Bearer
+
+
+logging:
+  level:
+    root: info
+    org.springframework.web: ERROR
+    nl.abn.assignment: INFO

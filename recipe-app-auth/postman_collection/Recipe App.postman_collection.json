@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "ba9a0fbd-cd7f-400e-81a6-6aef785c4868",
+		"name": "Recipe App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "103195",
+		"_collection_link": "https://universal-space-541391.postman.co/workspace/Rabo~f4bd57ab-4e62-48ae-812a-f5288b275328/collection/103195-ba9a0fbd-cd7f-400e-81a6-6aef785c4868?action=share&source=collection_link&creator=103195"
+	},
+	"item": [
+		{
+			"name": "UserLogin",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "mithilesh",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "mithilesh",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recipe Filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/recipes/filter?page=0&size=3",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"recipes",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Manage User Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/recipes/filter?page=0&size=3",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"recipes",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get By Recipe By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/recipes/62d58f811368a42978ac6e33",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recipes",
+						"62d58f811368a42978ac6e33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Recipe By Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaXRoaWxlc2giLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9sb2dpbiIsImV4cCI6MTcwMTY3MDg2MCwidXNlck5hbWUiOiJtaXRoaWxlc2gifQ.RPp4_2cUWB62pldkTmmyO5s1wi5wSyQYGiri0Qfk-Sk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/recipes/656d299894819f60acd76392",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recipes",
+						"656d299894819f60acd76392"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Recipes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaXRoaWxlc2giLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9sb2dpbiIsImV4cCI6MTcwMTY3MDg2MCwidXNlck5hbWUiOiJtaXRoaWxlc2gifQ.RPp4_2cUWB62pldkTmmyO5s1wi5wSyQYGiri0Qfk-Sk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"my title 3\",\n\t\"recipeType\": \"VEGAN\",\n\t\"servings\": 1,\n\t\"ingredients\":[\n\t\t{\n\t\t\t\"ingredientName\": \"salt\",\n\t\t\t\"quantity\": \"100gm\"\n\t\t},\n\t\t{\n\t\t\t\"ingredientName\": \"tarwe bloem\",\n\t\t\t\"quantity\": \"200gm\"\n\t\t}],\n\t\"instructions\":[\n\t\t{\n\t\t\t\"instructionNo\": \"step 1\",\n\t\t\t\"instruction\": \"switch on the stove\"\n\t\t},\n\t\t{\n\t\t\t\"instructionNo\": \"step 2\",\n\t\t\t\"instruction\": \"on the oven\"\n\t\t}]\t\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/recipes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recipe Filter By Type and Servings",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"recipeType\": \"VEGAN\",\n\t\"noOfServings\": 2\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/recipes/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"recipes",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recipe Filter by Ingredients",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"ingredients\":[\"salt\"]\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/recipes/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"recipes",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recipe Filter by list of ingredients",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"ingredients\":[\"sugar\", \"tarwe meel\", \"salt\"]\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/recipes/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"recipes",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Recipe By Recipe Type",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"recipeType\": \"VEGAN\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/recipes/fliter",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recipes",
+						"fliter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Recipe with exclude ingredients",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"ingredients\":[\"tarwe meel\", \"sugar\"],\n\"excludeIngredients\": true\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/recipes/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"recipes",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

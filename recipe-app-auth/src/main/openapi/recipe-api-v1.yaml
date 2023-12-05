@@ -1,0 +1,393 @@
+openapi: 3.0.1
+info:
+  title: Recipe Api
+  description: Recipe Management Api's
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /recipes:
+    post:
+      tags:
+        - recipe-controller
+      summary: Create a new recipe
+      operationId: createRecipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecipeRequest'
+        required: true
+      responses:
+        '201':
+          description: ' Create  and  returns a new recipe'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeDetails'
+        '400':
+          description: Bad Request mandatory  fields missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Request Resource is not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /recipes/filter:
+    post:
+      tags:
+        - recipe-controller
+      summary: Get Recipe with Optional Filters
+      operationId: filterRecipe
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          schema:
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: >-
+            Sorting criteria in the format: property,(asc|desc). Default sort
+            order is ascending. Multiple sort criteria are supported.
+          schema:
+            type: array
+            items:
+              type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pageable:
+                  $ref: '#/components/schemas/Pageable'
+                queryRequest:
+                  $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '201':
+          description: ' Filters and Returns the matched recipe'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeDetails'
+        '500':
+          description: Internal Server Exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /admin/user:
+    post:
+      tags:
+        - user-controller
+      summary: 'Register the new user; Role Required: ROLE_MANAGER'
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '201':
+          description: Return the created User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Internal Server Exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /recipes/{id}:
+    get:
+      tags:
+        - recipe-controller
+      summary: Retrieves a recipe by id
+      operationId: getRecipeDetails
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ' Retrieved recipe matched by the id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeDetails'
+        '404':
+          description: Request Resource is not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - recipe-controller
+      summary: Delete a recipe by id
+      operationId: deleteRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ' Deletes the Requested recipe'
+          content:
+            application/json: {}
+        '404':
+          description: Request Resource is not Found For Deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreateRecipeRequest:
+      required:
+        - name
+        - recipeType
+        - servings
+      type: object
+      properties:
+        name:
+          maxLength: 40
+          minLength: 5
+          type: string
+          description: Title of the recipe
+          example: my title
+        recipeType:
+          type: string
+          description: Type of the Recipe
+          example: VEGETARIAN
+          enum:
+            - NON_VEGETARIAN
+            - VEGETARIAN
+            - VEGAN
+            - GLUTEN_FREE
+            - RELIGIOUS
+        servings:
+          minimum: 1
+          type: integer
+          description: No of Servings
+          format: int32
+          example: 3
+        ingredients:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IngredientsDto'
+        instructions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/InstructionDto'
+    IngredientsDto:
+      type: object
+      properties:
+        ingredientName:
+          type: string
+          description: Ingredient Name
+          example: Salt
+        quantity:
+          type: string
+          description: Quantity of the Recipe
+          example: 1 kg
+    InstructionDto:
+      type: object
+      properties:
+        instructionNo:
+          type: string
+          description: Instruction Sequence Number
+          example: Step No 1
+        instruction:
+          type: string
+          description: Instruction to do the Recipe
+          example: Add Salt
+    RecipeDetails:
+      required:
+        - id
+        - name
+        - recipeType
+        - servings
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the recipe
+          example: '1'
+        name:
+          type: string
+          description: Name of the recipe
+          example: White Sauce Pasta
+        servings:
+          type: integer
+          description: No of Servings
+          format: int32
+          example: 3
+        recipeType:
+          type: string
+          description: Type of the recipe
+          example: Vegan
+          enum:
+            - NON_VEGETARIAN
+            - VEGETARIAN
+            - VEGAN
+            - GLUTEN_FREE
+            - RELIGIOUS
+        instructions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/InstructionDto'
+        ingredients:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IngredientsDto'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldError'
+        subErrors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponse'
+    FieldError:
+      type: object
+      properties:
+        codes:
+          type: array
+          items:
+            type: string
+        arguments:
+          type: array
+          items:
+            type: object
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+        field:
+          type: string
+        rejectedValue:
+          type: object
+        bindingFailure:
+          type: boolean
+        code:
+          type: string
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    QueryRequest:
+      type: object
+      properties:
+        recipeType:
+          type: string
+          description: Recipe Type to filter
+          example: VEGETARIAN
+          enum:
+            - NON_VEGETARIAN
+            - VEGETARIAN
+            - VEGAN
+            - GLUTEN_FREE
+            - RELIGIOUS
+        noOfServings:
+          type: integer
+          description: No of servings
+          format: int32
+          example: 2
+        excludeIngredients:
+          type: boolean
+          description: >-
+            Identifier to check if the check on ingredients with excluded on the
+            Recipe
+          example: true
+          default: false
+        ingredients:
+          type: array
+          description: List of Ingredients to be either present or not on the Recipe
+          example: Salt, Chicken
+          items:
+            type: string
+            description: List of Ingredients to be either present or not on the Recipe
+            example: Salt, Chicken
+        instructions:
+          type: array
+          description: List of Instructions to be searched on the  recipe.
+          example: Add Salt
+          items:
+            type: string
+            description: List of Instructions to be searched on the  recipe.
+            example: Add Salt
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        userRoles:
+          uniqueItems: true
+          type: array
+          items:
+            type: string

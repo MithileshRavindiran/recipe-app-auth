@@ -1,0 +1,25 @@
+spring:
+  data:
+    mongodb:
+      host: mongodb
+      port: 27018
+      username: mithilesh
+      password: rootpassword
+      database: admin
+      auto-index-creation: true
+
+
+app:
+  security:
+    token:
+      expirationTime: 86400000
+      signingKey: SeyaliyinKadavuchsolSaavi
+      bearer:
+        prefix: Bearer
+
+
+logging:
+  level:
+    root: info
+    org.springframework.web: ERROR
+    nl.abn.assignment: INFO

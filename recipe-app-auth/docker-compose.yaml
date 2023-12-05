@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    command: mongod --port 27018
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      MONGO_INITDB_DATABASE: admin
+    ports:
+      - "27018:27018"
+    networks:
+      - my-network
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
+  recipe-app:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:rootpassword@mongodb:27018/admin
+    networks:
+      - my-network
+
+networks:
+  my-network:
+
+volumes:
+  mongodb_data_container:
+    driver: local

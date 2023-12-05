@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: recipe
+      auto-index-creation: true
+
+
+
+app:
+  security:
+    token:
+      expirationtime: 86400000
+      signingKey: SeyaliyinKadavuchsolSaavi
+      bearer:
+        prefix: Bearer
