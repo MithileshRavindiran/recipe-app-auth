@@ -19,7 +19,7 @@ services:
 
   recipe-app:
     build:
-      context: ./
+      context: recipe-app-auth
       dockerfile: docker/Dockerfile
     ports:
       - "8082:8080"
