@@ -34,7 +34,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import nl.abn.assignment.context.UserContext;
 import nl.abn.assignment.exception.InvalidJwtToken;
 
 /**
@@ -49,8 +48,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Value("${app.security.token.bearer.prefix}")
     private String bearerPrefix;
 
-    @Autowired
-    private UserContext userContext;
 
     /**
      * To validate the incoming request with the bearer token and to check if the user is allowed to access it or else block it!
@@ -80,8 +77,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                     stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userName, token, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    userContext.setUserName(userName);
-                    //request.setAttribute("userKey",userName);
                     filterChain.doFilter(request, response);
 
                 }
