@@ -51,7 +51,7 @@ From root directory run
 5) CI/CD Pipeline integration
 6) Automation Testing with CI/CD
 7) Load testing to understand the application behaviour and bottlenecks
-8) JWT Refresh Token implementation on JWT
+8) JWT Refresh Token implementation
 9) Utilize JAVA 17 features like Record classes instead of lombok
 
 
